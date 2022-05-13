@@ -13,15 +13,14 @@ public class Sedez {
    private String oznaka;
    private int status;
 
-   public Sedez() { }
-
    public Sedez(String oznaka, int status) {
       this.oznaka = oznaka;
       this.status = status;
    }
 
-   public List<Sedez> vrniSeznamSedezev() {
+   public static List<Sedez> vrniSeznamSedezev(String naziv) {
       // TODO: implement
+      // SELECT oznaka, status FROM Sedez WHERE mesto = naziv;
       return null;
    }
 

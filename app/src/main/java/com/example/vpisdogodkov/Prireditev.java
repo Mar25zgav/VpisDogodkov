@@ -10,29 +10,37 @@ import java.time.LocalDateTime;
 
 public class Prireditev {
 
-   private int sifraPrireditve;
-   private String naslovPrireditve;
+   private int sifra;
+   private String naslov;
    private double cenaVstopnice;
-   private LocalDateTime zacetekPrireditve;
-   private LocalDateTime konecPrireditve;
+   private LocalDateTime zacetek;
+   private LocalDateTime konec;
+
+   public Prireditev(int sifra, String naslov, double cenaVstopnice, LocalDateTime zacetek, LocalDateTime konec) {
+      this.sifra = sifra;
+      this.naslov = naslov;
+      this.cenaVstopnice = cenaVstopnice;
+      this.zacetek = zacetek;
+      this.konec = konec;
+   }
 
    public String vrniNaslov() {
-      // TODO: implement
-      return null;
+      return naslov;
    }
 
    public int vrniTrajanje() {
       // TODO: implement
+      // konec - zacetek
       return 0;
    }
 
    public double vrniCeno() {
-      // TODO: implement
-      return 0;
+      return cenaVstopnice;
    }
 
-   public void dodajPrireditev() {
+   public static void dodajPrireditev(Prireditev prireditev) {
       // TODO: implement
+      // INSERT INTO Prireditev VALUES (prireditev.sifra, ...)
    }
 
 }

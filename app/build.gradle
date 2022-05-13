@@ -30,7 +30,7 @@ android {
 
 dependencies {
 
-    implementation 'com.j256.ormlite:ormlite-android:4.45'
+    implementation 'mysql:mysql-connector-java:8.0.29'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'

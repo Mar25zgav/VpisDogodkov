@@ -1,9 +1,10 @@
 package com.example.vpisdogodkov;
 
+import com.google.protobuf.DescriptorProtos;
+
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 /***********************************************************************
@@ -14,114 +15,50 @@ import java.util.List;
 
 public class KVpisDogodka {
 
-   public Collection<Prireditev> prireditev;
+   public List<Prireditev> prireditev;
+   public List<Izvajalec> izvajalec;
+   public List<MestoPrireditve> mestaPrireditve;
    public SvSistemEposte svSistemEposte;
-   public Collection<Izvajalec> izvajalec;
-   public MestoPrireditve[] mestaPrireditve;
+
+   public KVpisDogodka() {
+      mestaPrireditve = MestoPrireditve.vrniMesta();
+   }
 
    public void zakljuciZVpisomDogodka() {
       // TODO: implement
    }
 
-   public void dodajNovoPrireditev() {
-      // TODO: implement
+   public void dodajNovoPrireditev(int sifra, String naslov, double cenaVstopnice, LocalDateTime zacetek, LocalDateTime konec) {
+      Prireditev prireditev = new Prireditev(sifra, naslov, cenaVstopnice, zacetek, konec);
+      Prireditev.dodajPrireditev(prireditev);
    }
 
-   public HashMap<String, String> vrniPodrobnostiMestaPrireditve() {
-      // TODO: implement
-      return null;
+   public HashMap<String, String> vrniPodrobnostiMestaPrireditve(String naziv) {
+      HashMap<String, String> podrobnosti = new HashMap<>();
+
+      for (MestoPrireditve mesto : mestaPrireditve) {
+         if (mesto.vrniNaziv().equals(naziv)) {
+            podrobnosti.put("naziv", mesto.vrniNaziv());
+            podrobnosti.put("naslov", mesto.vrniNaslov());
+            podrobnosti.put("steviloSedezev", String.valueOf(mesto.vrniSteviloSedezev()));
+            break;
+         }
+      }
+
+      return podrobnosti;
    }
 
    public List<MestoPrireditve> vrniSeznamMest() {
-      // TODO: implement
-      return null;
+      return mestaPrireditve;
    }
 
-   public List<Termin> vrniProsteTermineZaMesto() {
-      // TODO: implement
-      return null;
+   public List<Termin> vrniProsteTermineZaMesto(String naziv) {
+      return MestoPrireditve.vrniProsteTermine(naziv);
    }
 
-   public void dodajNovegaIzvajalca() {
-      // TODO: implement
-   }
-   
-
-   public Collection<Prireditev> getPrireditev() {
-      if (prireditev == null)
-         prireditev = new HashSet<>();
-      return prireditev;
-   }
-
-   public Iterator<Prireditev> getIteratorPrireditev() {
-      if (prireditev == null)
-         prireditev = new HashSet<>();
-      return prireditev.iterator();
-   }
-
-   public void setPrireditev(Collection<Prireditev> newPrireditev) {
-      removeAllPrireditev();
-      for (Prireditev value : newPrireditev) addPrireditev(value);
-   }
-
-   public void addPrireditev(Prireditev newPrireditev) {
-      if (newPrireditev == null)
-         return;
-      if (this.prireditev == null)
-         this.prireditev = new HashSet<>();
-      if (!this.prireditev.contains(newPrireditev))
-         this.prireditev.add(newPrireditev);
-   }
-
-   public void removePrireditev(Prireditev oldPrireditev) {
-      if (oldPrireditev == null)
-         return;
-      if (this.prireditev != null)
-         this.prireditev.remove(oldPrireditev);
-   }
-
-   public void removeAllPrireditev() {
-      if (prireditev != null)
-         prireditev.clear();
-   }
-
-   public Collection<Izvajalec> getIzvajalec() {
-      if (izvajalec == null)
-         izvajalec = new HashSet<>();
-      return izvajalec;
-   }
-   
-
-   public Iterator<Izvajalec> getIteratorIzvajalec() {
-      if (izvajalec == null)
-         izvajalec = new java.util.HashSet<>();
-      return izvajalec.iterator();
-   }
-
-   public void setIzvajalec(Collection<Izvajalec> newIzvajalec) {
-      removeAllIzvajalec();
-      for (Izvajalec value : newIzvajalec) addIzvajalec(value);
-   }
-
-   public void addIzvajalec(Izvajalec newIzvajalec) {
-      if (newIzvajalec == null)
-         return;
-      if (this.izvajalec == null)
-         this.izvajalec = new HashSet<>();
-      if (!this.izvajalec.contains(newIzvajalec))
-         this.izvajalec.add(newIzvajalec);
-   }
-
-   public void removeIzvajalec(Izvajalec oldIzvajalec) {
-      if (oldIzvajalec == null)
-         return;
-      if (this.izvajalec != null)
-         this.izvajalec.remove(oldIzvajalec);
-   }
-
-   public void removeAllIzvajalec() {
-      if (izvajalec != null)
-         izvajalec.clear();
+   public void dodajNovegaIzvajalca(String naziv, String opis) {
+      Izvajalec izvajalec = new Izvajalec(naziv, opis);
+      Izvajalec.dodajIzvajalca(izvajalec);
    }
 
 }

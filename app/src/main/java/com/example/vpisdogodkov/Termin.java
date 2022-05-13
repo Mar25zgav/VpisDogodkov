@@ -15,8 +15,14 @@ public class Termin {
    private LocalDate datum;
    private LocalTime ura;
 
-   public List<Sedez> vrniSeznamTerminovZaMestoPrireditve() {
+   public Termin(LocalDate datum, LocalTime ura) {
+      this.datum = datum;
+      this.ura = ura;
+   }
+
+   public static List<Termin> vrniSeznamTerminovZaMestoPrireditve(String mesto) {
       // TODO: implement
+      // SELECT datum, ura FROM Termin WHERE zaseden = false;
       return null;
    }
 

@@ -11,6 +11,11 @@ public class Izvajalec {
    private String naziv;
    private String opis;
 
+   public Izvajalec(String naziv, String opis) {
+      this.naziv = naziv;
+      this.opis = opis;
+   }
+
    public String vrniNaziv() {
       return naziv;
    }
@@ -19,8 +24,9 @@ public class Izvajalec {
       return opis;
    }
 
-   public void dodajIzvajalca() {
+   public static void dodajIzvajalca(Izvajalec izvajalec) {
       // TODO: implement
+      // INSERT INTO Izvajalec VALUES (izvajalec.naziv, izvajalec.opis)
    }
 
 }
