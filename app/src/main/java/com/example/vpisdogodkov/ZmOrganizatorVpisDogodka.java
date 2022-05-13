@@ -20,14 +20,17 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+
+      // Inicializiraj kontroler za Vpis Dogodka
+      kVpisDogodka = new KVpisDogodka();
+
       pricniZVpisomDogodka();
    }
 
    public void pricniZVpisomDogodka() {
-      // Inicializiraj kontroler za Vpis Dogodka
-      kVpisDogodka = new KVpisDogodka();
       // Pridobi seznam mest
       List<MestoPrireditve> mestaPrireditve = kVpisDogodka.vrniSeznamMest();
+
       // Prikaži seznam mest
       prikaziSeznamMest(mestaPrireditve);
    }
