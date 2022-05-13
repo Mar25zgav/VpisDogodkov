@@ -13,19 +13,24 @@ public class Sedez {
    private String oznaka;
    private int status;
 
+   public Sedez() { }
+
+   public Sedez(String oznaka, int status) {
+      this.oznaka = oznaka;
+      this.status = status;
+   }
+
    public List<Sedez> vrniSeznamSedezev() {
       // TODO: implement
       return null;
    }
 
    public String vrniOznako() {
-      // TODO: implement
-      return null;
+      return oznaka;
    }
 
    public int vrniStatus() {
-      // TODO: implement
-      return 0;
+      return status;
    }
 
 }

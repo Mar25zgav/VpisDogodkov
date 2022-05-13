@@ -12,13 +12,11 @@ public class Izvajalec {
    private String opis;
 
    public String vrniNaziv() {
-      // TODO: implement
-      return null;
+      return naziv;
    }
 
    public String vrniOpis() {
-      // TODO: implement
-      return null;
+      return opis;
    }
 
    public void dodajIzvajalca() {

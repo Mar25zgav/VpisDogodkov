@@ -14,10 +14,10 @@ import java.util.List;
 
 public class KVpisDogodka {
 
-   public java.util.Collection<Prireditev> prireditev;
+   public Collection<Prireditev> prireditev;
    public SvSistemEposte svSistemEposte;
-   public java.util.Collection<Izvajalec> izvajalec;
-   public MestoPrireditve[] mestoPrireditve;
+   public Collection<Izvajalec> izvajalec;
+   public MestoPrireditve[] mestaPrireditve;
 
    public void zakljuciZVpisomDogodka() {
       // TODO: implement

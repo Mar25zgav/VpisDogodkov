@@ -1,5 +1,9 @@
 package com.example.vpisdogodkov;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.List;
 
 /***********************************************************************
@@ -10,18 +14,24 @@ import java.util.List;
 
 public class MestoPrireditve {
 
-   private List<Sedez> seznamSedezev;
    private String naziv;
    private String naslov;
+   private List<Sedez> seznamSedezev;
+
+   public MestoPrireditve() {}
+
+   public MestoPrireditve(String naziv, String naslov, List<Sedez> seznamSedezev) {
+      this.naziv = naziv;
+      this.naslov = naslov;
+      this.seznamSedezev = seznamSedezev;
+   }
 
    public int vrniSteviloSedezev() {
-      // TODO: implement
-      return 0;
+      return seznamSedezev.size();
    }
 
    public String vrniNaziv() {
-      // TODO: implement
-      return null;
+      return naziv;
    }
 
    public List<Termin> vrniProsteTermine() {
@@ -30,8 +40,7 @@ public class MestoPrireditve {
    }
 
    public String vrniNaslov() {
-      // TODO: implement
-      return null;
+      return naslov;
    }
 
    public List<MestoPrireditve> vrniMesta() {
