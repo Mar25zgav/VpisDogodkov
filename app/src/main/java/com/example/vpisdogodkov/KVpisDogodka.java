@@ -1,7 +1,5 @@
 package com.example.vpisdogodkov;
 
-import com.google.protobuf.DescriptorProtos;
-
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
