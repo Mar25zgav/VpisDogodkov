@@ -1,10 +1,13 @@
 package com.example.vpisdogodkov;
 
+import android.text.PrecomputedText;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +23,24 @@ public class SQLHelper {
     private static Connection connection = null;
 
     public static class izvajalec {
-        public static void insert(com.example.vpisdogodkov.Izvajalec izvajalec){
+        public static int insert(com.example.vpisdogodkov.Izvajalec izvajalec){
+            int primaryKey = -1;
             try {
                 connection = DriverManager.getConnection(url, username,password);
-                PreparedStatement stmt=connection.prepareStatement("INSERT INTO Izvajalec VALUES(?,?)");
+                PreparedStatement stmt=connection.prepareStatement("INSERT INTO Izvajalec VALUES(?,?)", Statement.RETURN_GENERATED_KEYS);
                 stmt.setString(1,izvajalec.vrniNaziv());//1 specifies the first parameter in the query
                 stmt.setString(2,izvajalec.vrniOpis());
 
-                int i=stmt.executeUpdate();
-                System.out.println(i+" records inserted");
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    primaryKey = rs.getInt(1);
+                }
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return primaryKey;
         }
     }
 
@@ -57,10 +65,11 @@ public class SQLHelper {
     }
 
     public static class prireditev {
-        public static void insert(Prireditev prireditev){
+        public static int insert(Prireditev prireditev){
+            int primaryKey = -1;
             try {
                 connection = DriverManager.getConnection(url, username,password);
-                PreparedStatement stmt=connection.prepareStatement("INSERT INTO Prireditev VALUES(?,?,?,?,?,?)");
+                PreparedStatement stmt=connection.prepareStatement("INSERT INTO Prireditev VALUES(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                 stmt.setInt(1,prireditev.vrniSifroIzvajalca());
                 stmt.setInt(2,prireditev.vrniSifroMesta());
                 stmt.setString(3,prireditev.vrniNaslov());
@@ -68,12 +77,16 @@ public class SQLHelper {
                 stmt.setDate(5,prireditev.vrniZacetek());
                 stmt.setDate(6,prireditev.vrniKonec());
 
-                int i=stmt.executeUpdate();
-                System.out.println(i+" records inserted");
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    primaryKey = rs.getInt(1);
+                }
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return primaryKey;
         }
     }
 

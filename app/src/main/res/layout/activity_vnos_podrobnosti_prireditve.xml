@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VnosPodrobnostiPrireditve">
+
+    <EditText
+        android:id="@+id/editTextNumberDecimal"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Cena Vstopnice (€)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNaslovPrireditve" />
+
+    <EditText
+        android:id="@+id/editTextNaslovPrireditve"
+        android:layout_width="310dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:hint="Naslov Prireditve"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Mesto:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewMesto"
+        app:layout_constraintHorizontal_bias="0.595"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Zacetek:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewZacetek"
+        app:layout_constraintHorizontal_bias="0.743"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textViewKonec"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewZacetek" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Konec:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewKonec"
+        app:layout_constraintHorizontal_bias="0.617"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textViewZacetek"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMesto" />
+
+    <TextView
+        android:id="@+id/textViewMesto"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIzvajalec" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Izvajalec:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewIzvajalec"
+        app:layout_constraintHorizontal_bias="0.805"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
+
+    <TextView
+        android:id="@+id/textViewIzvajalec"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
+
+    <Button
+        android:id="@+id/buttonDodajPrireditev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:text="Dodaj Prireditev"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarPrireditev"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="354dp"
+        android:layout_height="400dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

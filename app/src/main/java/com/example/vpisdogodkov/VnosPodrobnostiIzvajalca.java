@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class VnosPodrobnostiIzvajalca extends AppCompatActivity {
     private EditText editTextNazivIzvajalca, editTextOpisIzvajalca;
@@ -58,8 +60,21 @@ public class VnosPodrobnostiIzvajalca extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
         Izvajalec izvajalec = new Izvajalec(naziv, opis);
-        SQLHelper.izvajalec.insert(izvajalec);
+        int izvajalecPrimaryKey = SQLHelper.izvajalec.insert(izvajalec);
         progressBar.setVisibility(View.GONE);
+
+        if (izvajalecPrimaryKey == -1){
+            Toast.makeText(VnosPodrobnostiIzvajalca.this, "Nekaj se je zalomilo, znova poskusi kasneje", Toast.LENGTH_LONG).show();
+            return;
+        }
+        Toast.makeText(VnosPodrobnostiIzvajalca.this, "Izvajalec uspesno dodan", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(VnosPodrobnostiIzvajalca.this, VnosPodrobnostiPrireditve.class);
+        Bundle b = new Bundle();
+        b.putInt("sifraIzvajalca", izvajalecPrimaryKey); //Your id
+        b.putString("nazivIzvajalca", naziv);
+        intent.putExtras(b); //P
+        startActivity(intent);
     }
 
 }
