@@ -38,7 +38,7 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
 
    private void dbTest(){
 
-/*    DODAJ IZCAJALCA
+/*    DODAJ IZVAJALCA
       Izvajalec testIzvajalec = new Izvajalec("Tabu", "Tretja...");
       SQLHelper.izvajalec.insert(testIzvajalec);*/
 
@@ -54,17 +54,22 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
       Prireditev testPriredtev = new Prireditev(2, 3, "nek naslov", 33, date, date);
       Prireditev.dodajPrireditev(testPriredtev);*/
 
-/*    PRIDOBI VSE SEDEZE OD DANEGA MESTA
+/*    //PRIDOBI VSE SEDEZE OD DANEGA MESTA
       int sifraMesta = 2;
       List<Sedez> sedezi = Sedez.vrniSeznamSedezev(sifraMesta);
       for (Sedez sedez : sedezi)
          System.out.println(sedez.vrniSifroSedeza());*/
 
+/*    //PRIDOBI VSE PROTSTE TERMINE ZA DANO MESTO
       int sifraMesta = 1;
-      List<Termin> prostiTermini = Termin.vrniSeznamTerminovZaMestoPrireditve(sifraMesta);
+      List<Termin> prostiTermini = Termin.vrniSeznamProstihTerminovZaMesto(sifraMesta);
       for (Termin termin : prostiTermini){
          System.out.println(termin.vrniSifraTermina());
-      }
+      }*/
+
+      //PRIDOBI STEVILO SEDEZEV ZA DANO MESTO
+      int sifraMesta = 2;
+      System.out.println(Sedez.vrniSteviloSedezev(sifraMesta));
    }
 
 

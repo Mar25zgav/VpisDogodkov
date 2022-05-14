@@ -31,7 +31,7 @@ public class MestoPrireditve {
    public int vrniSifro() { return sifraMesta; }
 
    public static List<Termin> vrniProsteTermine(int sifraMesta) {
-      return Termin.vrniSeznamTerminovZaMestoPrireditve(sifraMesta);
+      return Termin.vrniSeznamProstihTerminovZaMesto(sifraMesta);
    }
 
    public static List<MestoPrireditve> vrniMesta() {

@@ -87,7 +87,7 @@ public class SQLHelper {
                 ResultSet rs=stmt.executeQuery();
 
                 while (rs.next()) {
-                    Sedez tempSedez = new Sedez(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getByte(4));
+                    Sedez tempSedez = new Sedez(rs.getInt(1), rs.getInt(2));
                     sedezi.add(tempSedez);
                 }
                 connection.close();
@@ -95,6 +95,22 @@ public class SQLHelper {
                 e.printStackTrace();
             }
             return sedezi;
+        }
+
+        public static int vrniSteviloSedezev(int sifraMesta){
+            int steviloSedezev = -1;
+            try {
+                connection = DriverManager.getConnection(url, username,password);
+                PreparedStatement stmt=connection.prepareStatement("SELECT COUNT(sifraSedeza) FROM Sedez WHERE sifraMesta = ?");
+                stmt.setInt(1,sifraMesta);
+                ResultSet rs=stmt.executeQuery();
+                if (rs.next())
+                    steviloSedezev = rs.getInt(1);
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return steviloSedezev;
         }
     }
 

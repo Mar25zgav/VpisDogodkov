@@ -11,18 +11,18 @@ import java.util.List;
 public class Sedez {
    private int sifraSedeza;
    private int sifraMesta;
-   private String oznaka;
-   private int status;
 
-   public Sedez(int sifraSedeza, int sifraMesta, String oznaka, int status) {
+   public Sedez(int sifraSedeza, int sifraMesta) {
       this.sifraSedeza = sifraSedeza;
       this.sifraMesta = sifraMesta;
-      this.oznaka = oznaka;
-      this.status = status;
    }
 
    public static List<Sedez> vrniSeznamSedezev(int sifraMesta) {
       return SQLHelper.sedez.vrniSedezeIzMesta(sifraMesta);
+   }
+
+   public static int vrniSteviloSedezev(int sifraMesta) {
+      return SQLHelper.sedez.vrniSteviloSedezev(sifraMesta);
    }
 
    public int vrniSifroSedeza() {
@@ -30,12 +30,6 @@ public class Sedez {
    }
    public int vrniSifroMesta() {
       return sifraMesta;
-   }
-   public String vrniOznako() {
-      return oznaka;
-   }
-   public int vrniStatus() {
-      return status;
    }
 
 }

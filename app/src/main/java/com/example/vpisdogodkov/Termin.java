@@ -27,7 +27,7 @@ public class Termin {
       this.zaseden = zaseden;
    }
 
-   public static List<Termin> vrniSeznamTerminovZaMestoPrireditve(int sifraMesta) {
+   public static List<Termin> vrniSeznamProstihTerminovZaMesto(int sifraMesta) {
       return SQLHelper.termin.vrniProsteTerminaZaMesto(sifraMesta);
    }
 
