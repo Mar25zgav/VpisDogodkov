@@ -9,25 +9,31 @@ import java.util.List;
  ***********************************************************************/
 
 public class Sedez {
-
+   private int sifraSedeza;
+   private int sifraMesta;
    private String oznaka;
    private int status;
 
-   public Sedez(String oznaka, int status) {
+   public Sedez(int sifraSedeza, int sifraMesta, String oznaka, int status) {
+      this.sifraSedeza = sifraSedeza;
+      this.sifraMesta = sifraMesta;
       this.oznaka = oznaka;
       this.status = status;
    }
 
-   public static List<Sedez> vrniSeznamSedezev(String naziv) {
-      // TODO: implement
-      // SELECT oznaka, status FROM Sedez WHERE mesto = naziv;
-      return null;
+   public static List<Sedez> vrniSeznamSedezev(int sifraMesta) {
+      return SQLHelper.sedez.vrniSedezeIzMesta(sifraMesta);
    }
 
+   public int vrniSifroSedeza() {
+      return sifraSedeza;
+   }
+   public int vrniSifroMesta() {
+      return sifraMesta;
+   }
    public String vrniOznako() {
       return oznaka;
    }
-
    public int vrniStatus() {
       return status;
    }

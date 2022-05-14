@@ -37,13 +37,28 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
    }
 
    private void dbTest(){
-/*      Izvajalec testIzvajalec = new Izvajalec("Tabu", "Tretja...");
+
+/*    DODAJ IZCAJALCA
+      Izvajalec testIzvajalec = new Izvajalec("Tabu", "Tretja...");
       SQLHelper.izvajalec.insert(testIzvajalec);*/
 
+/*    PRIDOBI VSA MESTA
       List<MestoPrireditve> testMesto = MestoPrireditve.vrniMesta();
       for (MestoPrireditve mesto : testMesto){
          System.out.println(mesto.vrniNaziv());
-      }
+      }*/
+
+/*    DODAJ PRIREDITEV
+      long millis=System.currentTimeMillis();
+      java.sql.Date date=new java.sql.Date(millis);
+      Prireditev testPriredtev = new Prireditev(2, 3, "nek naslov", 33, date, date);
+      Prireditev.dodajPrireditev(testPriredtev);*/
+
+/*    PRIDOBI VSE SEDEZE OD DANEGA MESTA
+      int sifraMesta = 2;
+      List<Sedez> sedezi = Sedez.vrniSeznamSedezev(sifraMesta);
+      for (Sedez sedez : sedezi)
+         System.out.println(sedez.vrniSifroSedeza());*/
    }
 
    public void pricniZVpisomDogodka() {

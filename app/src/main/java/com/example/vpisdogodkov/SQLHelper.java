@@ -76,4 +76,25 @@ public class SQLHelper {
             }
         }
     }
+
+    public static class sedez {
+        public static List<Sedez> vrniSedezeIzMesta(int sifraMesta){
+            List<Sedez> sedezi =new ArrayList<>();
+            try {
+                connection = DriverManager.getConnection(url, username,password);
+                PreparedStatement stmt=connection.prepareStatement("SELECT * FROM Sedez WHERE sifraMesta = ?");
+                stmt.setInt(1,sifraMesta);
+                ResultSet rs=stmt.executeQuery();
+
+                while (rs.next()) {
+                    Sedez tempSedez = new Sedez(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getByte(4));
+                    sedezi.add(tempSedez);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return sedezi;
+        }
+    }
 }
