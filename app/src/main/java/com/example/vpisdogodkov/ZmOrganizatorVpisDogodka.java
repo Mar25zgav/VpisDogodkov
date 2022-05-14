@@ -37,15 +37,13 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
    }
 
    private void dbTest(){
-/*      Izvajalec test = new Izvajalec("MI2", "Druga skupina na pameti");
-      SQLHelper.izvajalec.insert(test);*/
+/*      Izvajalec testIzvajalec = new Izvajalec("Tabu", "Tretja...");
+      SQLHelper.izvajalec.insert(testIzvajalec);*/
 
-      List<MestoPrireditve> test = MestoPrireditve.vrniMesta();
-
-      for (MestoPrireditve mesto : test){
+      List<MestoPrireditve> testMesto = MestoPrireditve.vrniMesta();
+      for (MestoPrireditve mesto : testMesto){
          System.out.println(mesto.vrniNaziv());
       }
-
    }
 
    public void pricniZVpisomDogodka() {

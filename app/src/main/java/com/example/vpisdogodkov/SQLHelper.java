@@ -22,44 +22,6 @@ public class SQLHelper {
 
     private static Connection connection = null;
 
-    private static ArrayList<HashMap<String, String>> general_select(String query){
-        ArrayList<HashMap<String, String>> result = new ArrayList<>();
-        try {
-            connection = DriverManager.getConnection(url, username,password);
-            Statement stmt=connection.createStatement();
-            ResultSet rs=stmt.executeQuery(query);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-
-
-            while (rs.next()) {
-                HashMap<String, String> row = new HashMap<String, String>();
-                for (int i = 1; i <= columnsNumber; i++) {
-                    String columnValue = rs.getString(i);
-                    row.put(rsmd.getColumnName(i), columnValue);
-                }
-                result.add(row);
-            }
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    private static void general_insert(String table, String columns, String values){
-        String query = "INSERT INTO " + table + " (" + columns + ") VALUES (" + values + ")";
-        System.out.println(query);
-        try {
-            connection = DriverManager.getConnection(url, username,password);
-            Statement stmt=connection.createStatement();
-            stmt.executeQuery(query);
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static class izvajalec {
         public static void insert(com.example.vpisdogodkov.Izvajalec izvajalec){
             try {

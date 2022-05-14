@@ -35,8 +35,6 @@ public class MestoPrireditve {
    }
 
    public static List<MestoPrireditve> vrniMesta() {
-      // TODO: implement
-      // SELECT naziv, naslov FROM MestoPrireditve;
       return SQLHelper.mestoPrireditve.getAll();
    }
 
