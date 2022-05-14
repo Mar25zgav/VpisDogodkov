@@ -4,11 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class SQLHelper {
@@ -56,6 +53,27 @@ public class SQLHelper {
                 e.printStackTrace();
             }
             return mesta;
+        }
+    }
+
+    public static class prireditev {
+        public static void insert(Prireditev prireditev){
+            try {
+                connection = DriverManager.getConnection(url, username,password);
+                PreparedStatement stmt=connection.prepareStatement("INSERT INTO Prireditev VALUES(?,?,?,?,?,?)");
+                stmt.setInt(1,prireditev.vrniSifroIzvajalca());
+                stmt.setInt(2,prireditev.vrniSifroMesta());
+                stmt.setString(3,prireditev.vrniNaslov());
+                stmt.setDouble(4,prireditev.vrniCenoVstopnice());
+                stmt.setDate(5,prireditev.vrniZacetek());
+                stmt.setDate(6,prireditev.vrniKonec());
+
+                int i=stmt.executeUpdate();
+                System.out.println(i+" records inserted");
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

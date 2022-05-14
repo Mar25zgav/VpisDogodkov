@@ -1,6 +1,6 @@
 package com.example.vpisdogodkov;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 /***********************************************************************
  * Module:  Prireditev.java
@@ -10,22 +10,53 @@ import java.time.LocalDateTime;
 
 public class Prireditev {
 
-   private int sifra;
+   private int sifraPrireditve;
+   private int sifraIzvajalca;
+   private int sifraMesta;
    private String naslov;
    private double cenaVstopnice;
-   private LocalDateTime zacetek;
-   private LocalDateTime konec;
+   private Date zacetek;
+   private Date konec;
 
-   public Prireditev(int sifra, String naslov, double cenaVstopnice, LocalDateTime zacetek, LocalDateTime konec) {
-      this.sifra = sifra;
+   public Prireditev(int sifraPrireditve, int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Date zacetek, Date konec) {
+      this.sifraPrireditve = sifraPrireditve;
+      this.sifraIzvajalca = sifraIzvajalca;
+      this.sifraMesta = sifraMesta;
       this.naslov = naslov;
       this.cenaVstopnice = cenaVstopnice;
       this.zacetek = zacetek;
       this.konec = konec;
    }
 
+   public Prireditev(int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Date zacetek, Date konec) {
+      this.sifraIzvajalca = sifraIzvajalca;
+      this.sifraMesta = sifraMesta;
+      this.naslov = naslov;
+      this.cenaVstopnice = cenaVstopnice;
+      this.zacetek = zacetek;
+      this.konec = konec;
+   }
+
+   public int vrniSifroPrirediteve() {
+      return sifraPrireditve;
+   }
+   public int vrniSifroIzvajalca() {
+      return sifraIzvajalca;
+   }
+   public int vrniSifroMesta() {
+      return sifraMesta;
+   }
    public String vrniNaslov() {
       return naslov;
+   }
+   public double vrniCenoVstopnice() {
+      return cenaVstopnice;
+   }
+   public Date vrniZacetek() {
+      return zacetek;
+   }
+   public Date vrniKonec() {
+      return konec;
    }
 
    public int vrniTrajanje() {
@@ -34,13 +65,8 @@ public class Prireditev {
       return 0;
    }
 
-   public double vrniCeno() {
-      return cenaVstopnice;
-   }
-
    public static void dodajPrireditev(Prireditev prireditev) {
-      // TODO: implement
-      // INSERT INTO Prireditev VALUES (prireditev.sifra, ...)
+      SQLHelper.prireditev.insert(prireditev);
    }
 
 }

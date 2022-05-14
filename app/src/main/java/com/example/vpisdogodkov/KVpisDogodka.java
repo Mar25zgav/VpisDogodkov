@@ -1,5 +1,6 @@
 package com.example.vpisdogodkov;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,8 +27,8 @@ public class KVpisDogodka {
       // TODO: implement
    }
 
-   public void dodajNovoPrireditev(int sifra, String naslov, double cenaVstopnice, LocalDateTime zacetek, LocalDateTime konec) {
-      Prireditev prireditev = new Prireditev(sifra, naslov, cenaVstopnice, zacetek, konec);
+   public void dodajNovoPrireditev(int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Date zacetek, Date konec) {
+      Prireditev prireditev = new Prireditev(sifraIzvajalca, sifraMesta, naslov, cenaVstopnice, zacetek, konec);
       Prireditev.dodajPrireditev(prireditev);
    }
 
