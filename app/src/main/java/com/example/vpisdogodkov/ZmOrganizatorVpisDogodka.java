@@ -4,9 +4,12 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -16,9 +19,11 @@ import java.util.List;
  * Purpose: Defines the Class ZmOrganizatorVpisDogodka
  ***********************************************************************/
 
-public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
+public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements View.OnClickListener {
 
-   public KVpisDogodka kVpisDogodka;
+   KVpisDogodka kVpisDogodka;
+   RecyclerView recyclerView;
+   Button izberiBtn;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,7 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
 
       // Inicializiraj kontroler za Vpis Dogodka
       kVpisDogodka = new KVpisDogodka();
-      dbTest();
+
       pricniZVpisomDogodka();
    }
 
@@ -72,7 +77,6 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
       System.out.println(Sedez.vrniSteviloSedezev(sifraMesta));
    }
 
-
    public void pricniZVpisomDogodka() {
       // Pridobi seznam mest
       List<MestoPrireditve> mestaPrireditve = kVpisDogodka.vrniSeznamMest();
@@ -82,7 +86,18 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
    }
 
    public void prikaziSeznamMest(List<MestoPrireditve> mestaPrireditve) {
-      // TODO: implement
+      for (MestoPrireditve mestoPrireditve : mestaPrireditve)
+         mestoPrireditve.setSteviloSedezev();
+
+      recyclerView = findViewById(R.id.recyclerView);
+      MestaAdapter mestaAdapter = new MestaAdapter(mestaPrireditve);
+      recyclerView.setAdapter(mestaAdapter);
+      recyclerView.setHasFixedSize(true);
+   }
+
+   @Override
+   public void onClick(View view) {
+      setContentView(R.layout.activity_vnos_podrobnosti_izvajalca);
    }
 
    public void izbiraMesta() {
@@ -94,7 +109,7 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
    }
 
    public void potrdiIzbiroMesta() {
-      // TODO: implement
+      setContentView(R.layout.activity_main);
    }
 
    public void zahtevajVnosPodrobnostiZaPrireditev() {

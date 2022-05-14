@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Vpis Dogodka</string>
+    <string name="ime_mesta">Ime Mesta</string>
+    <string name="naslov">Naslov:</string>
+    <string name="tevilo_sede_ev">Število sedežev:</string>
+    <string name="izberi">Izberi</string>
 </resources>

@@ -13,11 +13,14 @@ public class MestoPrireditve {
    private int sifraMesta;
    private String naziv;
    private String naslov;
+   private int steviloSedezev;
+   private boolean expandable;
 
    public MestoPrireditve(int sifraMesta, String naziv, String naslov) {
       this.sifraMesta = sifraMesta;
       this.naziv = naziv;
       this.naslov = naslov;
+      this.expandable = false;
    }
 
    public String vrniNaziv() {
@@ -30,6 +33,14 @@ public class MestoPrireditve {
 
    public int vrniSifro() { return sifraMesta; }
 
+   public void setSteviloSedezev() {
+      steviloSedezev = SQLHelper.sedez.vrniSteviloSedezev(sifraMesta);
+   }
+
+   public int vrniSteviloSedezev() {
+      return steviloSedezev;
+   }
+
    public static List<Termin> vrniProsteTermine(int sifraMesta) {
       return Termin.vrniSeznamProstihTerminovZaMesto(sifraMesta);
    }
@@ -38,4 +49,11 @@ public class MestoPrireditve {
       return SQLHelper.mestoPrireditve.getAll();
    }
 
+   public boolean isExpandable() {
+      return expandable;
+   }
+
+   public void setExpandable(boolean expandable) {
+      this.expandable = expandable;
+   }
 }
