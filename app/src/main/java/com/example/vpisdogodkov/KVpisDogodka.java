@@ -51,8 +51,8 @@ public class KVpisDogodka {
       return mestaPrireditve;
    }
 
-   public List<Termin> vrniProsteTermineZaMesto(String naziv) {
-      return MestoPrireditve.vrniProsteTermine(naziv);
+   public List<Termin> vrniProsteTermineZaMesto(int sifraMesta) {
+      return MestoPrireditve.vrniProsteTermine(sifraMesta);
    }
 
    public void dodajNovegaIzvajalca(String naziv, String opis) {

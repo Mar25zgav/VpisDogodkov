@@ -59,7 +59,14 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity {
       List<Sedez> sedezi = Sedez.vrniSeznamSedezev(sifraMesta);
       for (Sedez sedez : sedezi)
          System.out.println(sedez.vrniSifroSedeza());*/
+
+      int sifraMesta = 1;
+      List<Termin> prostiTermini = Termin.vrniSeznamTerminovZaMestoPrireditve(sifraMesta);
+      for (Termin termin : prostiTermini){
+         System.out.println(termin.vrniSifraTermina());
+      }
    }
+
 
    public void pricniZVpisomDogodka() {
       // Pridobi seznam mest

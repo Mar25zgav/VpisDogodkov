@@ -30,8 +30,8 @@ public class MestoPrireditve {
 
    public int vrniSifro() { return sifraMesta; }
 
-   public static List<Termin> vrniProsteTermine(String naziv) {
-      return Termin.vrniSeznamTerminovZaMestoPrireditve(naziv);
+   public static List<Termin> vrniProsteTermine(int sifraMesta) {
+      return Termin.vrniSeznamTerminovZaMestoPrireditve(sifraMesta);
    }
 
    public static List<MestoPrireditve> vrniMesta() {

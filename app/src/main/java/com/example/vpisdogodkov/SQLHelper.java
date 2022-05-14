@@ -97,4 +97,25 @@ public class SQLHelper {
             return sedezi;
         }
     }
+
+    public static class termin {
+        public static List<Termin> vrniProsteTerminaZaMesto(int sifraMesta){
+            List<Termin> prostiTermini =new ArrayList<>();
+            try {
+                connection = DriverManager.getConnection(url, username,password);
+                PreparedStatement stmt=connection.prepareStatement("SELECT * FROM Termin WHERE sifraMesta = ? AND Zaseden = 0");
+                stmt.setInt(1,sifraMesta);
+                ResultSet rs=stmt.executeQuery();
+
+                while (rs.next()) {
+                    Termin tempTermin = new Termin(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getTime(4), rs.getByte(5));
+                    prostiTermini.add(tempTermin);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return prostiTermini;
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.vpisdogodkov;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -11,19 +13,41 @@ import java.util.List;
  ***********************************************************************/
 
 public class Termin {
+   private int sifraTermina;
+   private int sifraMesta;
+   private Date datum;
+   private Time ura;
+   private int zaseden;
 
-   private LocalDate datum;
-   private LocalTime ura;
-
-   public Termin(LocalDate datum, LocalTime ura) {
+   public Termin(int sifraTermina, int sifraMesta, Date datum, Time ura, int zaseden) {
+      this.sifraTermina = sifraTermina;
+      this.sifraMesta = sifraMesta;
       this.datum = datum;
       this.ura = ura;
+      this.zaseden = zaseden;
    }
 
-   public static List<Termin> vrniSeznamTerminovZaMestoPrireditve(String mesto) {
-      // TODO: implement
-      // SELECT datum, ura FROM Termin WHERE zaseden = false;
-      return null;
+   public static List<Termin> vrniSeznamTerminovZaMestoPrireditve(int sifraMesta) {
+      return SQLHelper.termin.vrniProsteTerminaZaMesto(sifraMesta);
    }
 
+   public int vrniSifraTermina() {
+      return sifraTermina;
+   }
+
+   public int vrniSifraMesta() {
+      return sifraMesta;
+   }
+
+   public Date vrniDatum() {
+      return datum;
+   }
+
+   public Time vrniUra() {
+      return ura;
+   }
+
+   public int vrniZaseden() {
+      return zaseden;
+   }
 }
