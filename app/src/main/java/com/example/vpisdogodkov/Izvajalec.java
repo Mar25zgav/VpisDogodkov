@@ -25,8 +25,7 @@ public class Izvajalec {
    }
 
    public static void dodajIzvajalca(Izvajalec izvajalec) {
-      // TODO: implement
-      // INSERT INTO Izvajalec VALUES (izvajalec.naziv, izvajalec.opis)
+      SQLHelper.izvajalec.insert(izvajalec);
    }
 
 }

@@ -10,18 +10,14 @@ import java.util.List;
 
 public class MestoPrireditve {
 
+   private int sifraMesta;
    private String naziv;
    private String naslov;
-   private List<Sedez> seznamSedezev;
 
-   public MestoPrireditve(String naziv, String naslov, List<Sedez> seznamSedezev) {
+   public MestoPrireditve(int sifraMesta, String naziv, String naslov) {
+      this.sifraMesta = sifraMesta;
       this.naziv = naziv;
       this.naslov = naslov;
-      this.seznamSedezev = Sedez.vrniSeznamSedezev(naziv);
-   }
-
-   public int vrniSteviloSedezev() {
-      return seznamSedezev.size();
    }
 
    public String vrniNaziv() {
@@ -32,6 +28,8 @@ public class MestoPrireditve {
       return naslov;
    }
 
+   public int vrniSifro() { return sifraMesta; }
+
    public static List<Termin> vrniProsteTermine(String naziv) {
       return Termin.vrniSeznamTerminovZaMestoPrireditve(naziv);
    }
@@ -39,7 +37,7 @@ public class MestoPrireditve {
    public static List<MestoPrireditve> vrniMesta() {
       // TODO: implement
       // SELECT naziv, naslov FROM MestoPrireditve;
-      return null;
+      return SQLHelper.mestoPrireditve.getAll();
    }
 
 }
