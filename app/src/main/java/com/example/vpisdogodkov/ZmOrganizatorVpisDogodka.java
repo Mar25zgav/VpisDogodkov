@@ -5,12 +5,16 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /***********************************************************************
@@ -19,11 +23,10 @@ import java.util.List;
  * Purpose: Defines the Class ZmOrganizatorVpisDogodka
  ***********************************************************************/
 
-public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements View.OnClickListener {
+public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
    KVpisDogodka kVpisDogodka;
    RecyclerView recyclerView;
-   Button izberiBtn;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -41,42 +44,6 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements View.
       pricniZVpisomDogodka();
    }
 
-   private void dbTest(){
-
-/*    DODAJ IZVAJALCA
-      Izvajalec testIzvajalec = new Izvajalec("Tabu", "Tretja...");
-      SQLHelper.izvajalec.insert(testIzvajalec);*/
-
-/*    PRIDOBI VSA MESTA
-      List<MestoPrireditve> testMesto = MestoPrireditve.vrniMesta();
-      for (MestoPrireditve mesto : testMesto){
-         System.out.println(mesto.vrniNaziv());
-      }*/
-
-/*    DODAJ PRIREDITEV
-      long millis=System.currentTimeMillis();
-      java.sql.Date date=new java.sql.Date(millis);
-      Prireditev testPriredtev = new Prireditev(2, 3, "nek naslov", 33, date, date);
-      Prireditev.dodajPrireditev(testPriredtev);*/
-
-/*    //PRIDOBI VSE SEDEZE OD DANEGA MESTA
-      int sifraMesta = 2;
-      List<Sedez> sedezi = Sedez.vrniSeznamSedezev(sifraMesta);
-      for (Sedez sedez : sedezi)
-         System.out.println(sedez.vrniSifroSedeza());*/
-
-/*    //PRIDOBI VSE PROTSTE TERMINE ZA DANO MESTO
-      int sifraMesta = 1;
-      List<Termin> prostiTermini = Termin.vrniSeznamProstihTerminovZaMesto(sifraMesta);
-      for (Termin termin : prostiTermini){
-         System.out.println(termin.vrniSifraTermina());
-      }*/
-
-      //PRIDOBI STEVILO SEDEZEV ZA DANO MESTO
-      int sifraMesta = 2;
-      System.out.println(Sedez.vrniSteviloSedezev(sifraMesta));
-   }
-
    public void pricniZVpisomDogodka() {
       // Pridobi seznam mest
       List<MestoPrireditve> mestaPrireditve = kVpisDogodka.vrniSeznamMest();
@@ -89,27 +56,66 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements View.
       for (MestoPrireditve mestoPrireditve : mestaPrireditve)
          mestoPrireditve.setSteviloSedezev();
 
+      izbiraMesta(mestaPrireditve);
+   }
+
+   public void izbiraMesta(List<MestoPrireditve> mestaPrireditve) {
       recyclerView = findViewById(R.id.recyclerView);
       MestaAdapter mestaAdapter = new MestaAdapter(mestaPrireditve);
+
+      mestaAdapter.setOnItemClickListener((itemView, position) -> potrdiIzbiroMesta(mestaPrireditve.get(position)));
+
       recyclerView.setAdapter(mestaAdapter);
       recyclerView.setHasFixedSize(true);
    }
 
+   public void potrdiIzbiroMesta(MestoPrireditve mestoPrireditve) {
+      List<Termin> prostiTermini = kVpisDogodka.vrniProsteTermineZaMesto(mestoPrireditve.vrniSifro());
+
+      // Alternativni tok
+      if (prostiTermini.isEmpty())
+         prikaziSporociloZasedenemTerminu();
+      else // Osnovni tok
+         prikaziSeznamProstihTerminov(prostiTermini);
+   }
+
+   public void prikaziSporociloZasedenemTerminu() {
+      Toast toast = Toast.makeText(this, "Žal ni prostih terminov.", Toast.LENGTH_SHORT);
+      toast.show();
+   }
+
+   public void prikaziSeznamProstihTerminov(List<Termin> prostiTermini) {
+      DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+              this,
+              Calendar.getInstance().get(Calendar.YEAR),
+              Calendar.getInstance().get(Calendar.MONTH),
+              Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+      );
+
+      List<Calendar> dates = new ArrayList<>();
+      for (Termin termin : prostiTermini) {
+         Calendar calendar = Calendar.getInstance();
+         calendar.setTime(termin.vrniDatum());
+         dates.add(calendar);
+      }
+
+      Calendar[] prostiDatumi = dates.toArray(new Calendar[dates.size()]);
+      datePickerDialog.setSelectableDays(prostiDatumi);
+
+      datePickerDialog.show(getSupportFragmentManager(), "Datepickerdialog");
+   }
+
    @Override
-   public void onClick(View view) {
+   public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+      izberiTermin(year, monthOfYear, dayOfMonth);
+   }
+
+   public void izberiTermin(int year, int monthOfYear, int dayOfMonth) {
+      zahtevajVnosPodrobnostiZaIzvajalca();
+   }
+
+   public void zahtevajVnosPodrobnostiZaIzvajalca() {
       setContentView(R.layout.activity_vnos_podrobnosti_izvajalca);
-   }
-
-   public void izbiraMesta() {
-      // TODO: implement
-   }
-
-   public void izberiTermin() {
-      // TODO: implement
-   }
-
-   public void potrdiIzbiroMesta() {
-      setContentView(R.layout.activity_main);
    }
 
    public void zahtevajVnosPodrobnostiZaPrireditev() {
@@ -120,27 +126,11 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements View.
       // TODO: implement
    }
 
-   public void prikaziPodrobnostiMesta() {
-      // TODO: implement
-   }
-
-   public void prikaziSeznamProstihTerminov() {
-      // TODO: implement
-   }
-
-   public void zahtevajVnosPodrobnostiZaIzvajalca() {
-      // TODO: implement
-   }
-
-   public void vnosPodrobnostiIzvajalca() {
-      // TODO: implement
-   }
-
    public void prikaziSporociloOUspesnemVpisuDogodka() {
       // TODO: implement
    }
 
-   public void prikaziSporociloZasedenemTerminu() {
+   public void vnosPodrobnostiIzvajalca() {
       // TODO: implement
    }
 

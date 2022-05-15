@@ -16,6 +16,16 @@ import java.util.List;
 
 public class MestaAdapter extends RecyclerView.Adapter<MestaAdapter.MestaViewHolder> {
 
+    private static OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        MestaAdapter.listener = listener;
+    }
+
     List<MestoPrireditve> mestaPrireditve;
 
     public MestaAdapter(List<MestoPrireditve> mestaPrireditve) {
@@ -71,7 +81,9 @@ public class MestaAdapter extends RecyclerView.Adapter<MestaAdapter.MestaViewHol
             });
 
             izberiBtn.setOnClickListener(view -> {
-                // Pojdi na vnos izvajalca
+                if (listener != null) {
+                    listener.onItemClick(itemView, getLayoutPosition());
+                }
             });
         }
     }

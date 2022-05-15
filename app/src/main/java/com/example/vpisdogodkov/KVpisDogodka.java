@@ -37,7 +37,7 @@ public class KVpisDogodka {
          if (mesto.vrniNaziv().equals(naziv)) {
             podrobnosti.put("naziv", mesto.vrniNaziv());
             podrobnosti.put("naslov", mesto.vrniNaslov());
-            //podrobnosti.put("steviloSedezev", String.valueOf(mesto.vrniSteviloSedezev()));
+            podrobnosti.put("steviloSedezev", String.valueOf(mesto.vrniSteviloSedezev()));
             break;
          }
       }
