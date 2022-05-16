@@ -1,18 +1,26 @@
 package com.example.vpisdogodkov;
 
+import static java.lang.Integer.parseInt;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Group;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,6 +35,19 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
 
    KVpisDogodka kVpisDogodka;
    RecyclerView recyclerView;
+
+   // Vpis Izvajalca
+   private EditText editTextNazivIzvajalca, editTextOpisIzvajalca;
+   private ProgressBar progressBar;
+   private Group groupIzvajalec;
+
+   // Vpis Prireditve
+   int sifraIzvajalca = -1;
+   int sifraMesta = -1;
+   Date zacetekPrireditve = null;
+   Date konecPrireditve = null;
+
+   EditText editTextNaslovPrireditve, editTextNumberDecimal;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +96,10 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
       // Alternativni tok
       if (prostiTermini.isEmpty())
          prikaziSporociloZasedenemTerminu();
-      else // Osnovni tok
+      else{ // Osnovni tok
+         sifraMesta = mestoPrireditve.vrniSifro();
          prikaziSeznamProstihTerminov(prostiTermini);
+      }
    }
 
    public void prikaziSporociloZasedenemTerminu() {
@@ -115,23 +138,104 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
    }
 
    public void zahtevajVnosPodrobnostiZaIzvajalca() {
-      setContentView(R.layout.activity_vnos_podrobnosti_izvajalca);
+      // Inicializiraj vse za vnos izvajalca
+      editTextNazivIzvajalca = (EditText) findViewById(R.id.editTextNazivIzvajalca);
+      editTextOpisIzvajalca = (EditText) findViewById(R.id.editTextOpisIzvajalca);
+      progressBar = (ProgressBar) findViewById(R.id.progressBar);
+      groupIzvajalec = (Group) findViewById(R.id.groupIzvajalec);
+      Button dodajButton = (Button) findViewById(R.id.buttonDodajIzvajalca);
+      dodajButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            vnosPodrobnostiIzvajalca();
+         }
+      });
+
+      recyclerView.setVisibility(View.GONE);
+      groupIzvajalec.setVisibility(View.VISIBLE);
    }
 
    public void zahtevajVnosPodrobnostiZaPrireditev() {
-      // TODO: implement
+      // Inicializiraj vse za vnos prireditve
+      TextView textViewIzvajalec = (TextView) findViewById(R.id.textViewIzvajalec);
+      TextView textViewMesto = (TextView) findViewById(R.id.textViewMesto);
+      TextView textViewZacetek = (TextView) findViewById(R.id.textViewZacetek);
+      TextView textViewKonec = (TextView) findViewById(R.id.textViewKonec);
+      editTextNaslovPrireditve = (EditText) findViewById(R.id.editTextNaslovPrireditve);
+      editTextNumberDecimal = (EditText) findViewById(R.id.editTextCenaVstopnice);
+      Group groupPrireditev = (Group) findViewById(R.id.groupPrireditev);
+      Button buttonDodajPrireditev = (Button) findViewById(R.id.buttonDodajPrireditev);
+      buttonDodajPrireditev.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            vnosPodrobnostiPrireditve();
+         }
+      });
+
+      groupIzvajalec.setVisibility(View.GONE);
+      groupPrireditev.setVisibility(View.VISIBLE);
    }
 
    public void vnosPodrobnostiPrireditve() {
-      // TODO: implement
+      String naslovPrireditve = editTextNaslovPrireditve.getText().toString();
+      String cenaVstopnice = editTextNumberDecimal.getText().toString();
+
+      if (naslovPrireditve.isEmpty()){
+         editTextNaslovPrireditve.setError("Polje je obvezno!");
+         editTextNaslovPrireditve.requestFocus();
+         return;
+      }
+
+      if (cenaVstopnice.isEmpty()){
+         editTextNumberDecimal.setError("Polje je obvezno!");
+         editTextNumberDecimal.requestFocus();
+         return;
+      }
+
+      progressBar.setVisibility(View.VISIBLE);
+      Prireditev prireditev = new Prireditev(sifraIzvajalca, sifraMesta, naslovPrireditve, parseInt(cenaVstopnice), zacetekPrireditve, konecPrireditve);
+      int prireditevPrimaryKey = SQLHelper.prireditev.insert(prireditev);
+      progressBar.setVisibility(View.GONE);
+
+      if (prireditevPrimaryKey == -1)
+         Toast.makeText(ZmOrganizatorVpisDogodka.this, "Nekaj se je zalomilo, znova poskusi kasneje", Toast.LENGTH_LONG).show();
+      else
+         prikaziSporociloOUspesnemVpisuDogodka();
    }
 
    public void prikaziSporociloOUspesnemVpisuDogodka() {
-      // TODO: implement
+      Toast.makeText(ZmOrganizatorVpisDogodka.this, "Prireditev uspesno dodana", Toast.LENGTH_LONG).show();
    }
 
    public void vnosPodrobnostiIzvajalca() {
-      // TODO: implement
+      String naziv = editTextNazivIzvajalca.getText().toString();
+      String opis = editTextOpisIzvajalca.getText().toString();
+
+      if (naziv.isEmpty()){
+         editTextNazivIzvajalca.setError("Polje je obvezno!");
+         editTextNazivIzvajalca.requestFocus();
+         return;
+      }
+
+      if (opis.isEmpty()){
+         editTextOpisIzvajalca.setError("Polje je obvezno!");
+         editTextOpisIzvajalca.requestFocus();
+         return;
+      }
+
+      progressBar.setVisibility(View.VISIBLE);
+      Izvajalec izvajalec = new Izvajalec(naziv, opis);
+      int izvajalecPrimaryKey = SQLHelper.izvajalec.insert(izvajalec);
+      progressBar.setVisibility(View.GONE);
+
+      if (izvajalecPrimaryKey == -1){
+         Toast.makeText(ZmOrganizatorVpisDogodka.this, "Nekaj se je zalomilo, znova poskusi kasneje", Toast.LENGTH_LONG).show();
+         return;
+      }
+      sifraIzvajalca = izvajalecPrimaryKey;
+      Toast.makeText(ZmOrganizatorVpisDogodka.this, "Izvajalec uspesno dodan", Toast.LENGTH_LONG).show();
+
+      zahtevajVnosPodrobnostiZaPrireditev();
    }
 
 }

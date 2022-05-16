@@ -1,17 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".ZmOrganizatorVpisDogodka">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recyclerView"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/editTextNazivIzvajalca"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Naziv izvajalca"
+        android:inputType="text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/editTextOpisIzvajalca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.376"
+        tools:visibility="gone" />
+
+    <EditText
+        android:id="@+id/editTextOpisIzvajalca"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="334dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/edit_text_background"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Opis izvajalca"
+        android:inputType="textMultiLine"
+        android:padding="5dip"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDodajIzvajalca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="gone" />
+
+    <Button
+        android:id="@+id/buttonDodajIzvajalca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Naprej"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupIzvajalec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="editTextNazivIzvajalca, editTextOpisIzvajalca, buttonDodajIzvajalca"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="238dp"
+        tools:visibility="gone" />
+
+
+    <EditText
+        android:id="@+id/editTextCenaVstopnice"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Cena Vstopnice (€)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNaslovPrireditve" />
+
+    <EditText
+        android:id="@+id/editTextNaslovPrireditve"
+        android:layout_width="310dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:hint="Naslov Prireditve"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMestoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Mesto:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewMesto"
+        app:layout_constraintHorizontal_bias="0.595"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIzvajalecLabel" />
+
+    <TextView
+        android:id="@+id/textViewZacetekLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Zacetek:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewZacetek"
+        app:layout_constraintHorizontal_bias="0.743"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMestoLabel" />
+
+    <TextView
+        android:id="@+id/textViewKonec"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewZacetek" />
+
+    <TextView
+        android:id="@+id/textViewKonecLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Konec:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewKonec"
+        app:layout_constraintHorizontal_bias="0.617"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewZacetekLabel" />
+
+    <TextView
+        android:id="@+id/textViewZacetek"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMesto" />
+
+    <TextView
+        android:id="@+id/textViewMesto"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIzvajalec" />
+
+    <TextView
+        android:id="@+id/textViewIzvajalecLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Izvajalec:"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewIzvajalec"
+        app:layout_constraintHorizontal_bias="0.805"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCenaVstopnice" />
+
+    <TextView
+        android:id="@+id/textViewIzvajalec"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:text="Slon In Sadez"
+        android:textColor="#A1A1A1"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCenaVstopnice" />
+
+    <Button
+        android:id="@+id/buttonDodajPrireditev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:text="Dodaj Prireditev"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupPrireditev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="buttonDodajPrireditev,editTextNaslovPrireditve,textViewZacetekLabel,textViewKonec,textViewMesto,editTextCenaVstopnice,textViewKonecLabel,textViewZacetek,textViewMestoLabel,textViewIzvajalec,textViewIzvajalecLabel"
+        tools:layout_editor_absoluteX="180dp"
+        tools:layout_editor_absoluteY="231dp"
+        tools:visibility="gone" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
