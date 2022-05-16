@@ -46,6 +46,8 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
    int sifraMesta = -1;
    Date zacetekPrireditve = null;
    Date konecPrireditve = null;
+   String imeMesta = "";
+   String imeIzvajalca = "";
 
    EditText editTextNaslovPrireditve, editTextNumberDecimal;
 
@@ -98,6 +100,7 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
          prikaziSporociloZasedenemTerminu();
       else{ // Osnovni tok
          sifraMesta = mestoPrireditve.vrniSifro();
+         imeMesta = mestoPrireditve.vrniNaziv();
          prikaziSeznamProstihTerminov(prostiTermini);
       }
    }
@@ -172,6 +175,13 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
          }
       });
 
+      textViewIzvajalec.setText(imeIzvajalca);
+      textViewMesto.setText(imeMesta);
+      if (zacetekPrireditve != null)
+         textViewZacetek.setText(zacetekPrireditve.toString());
+      if (konecPrireditve != null)
+         textViewKonec.setText(konecPrireditve.toString());
+
       groupIzvajalec.setVisibility(View.GONE);
       groupPrireditev.setVisibility(View.VISIBLE);
    }
@@ -233,6 +243,7 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
          return;
       }
       sifraIzvajalca = izvajalecPrimaryKey;
+      imeIzvajalca = naziv;
       Toast.makeText(ZmOrganizatorVpisDogodka.this, "Izvajalec uspesno dodan", Toast.LENGTH_LONG).show();
 
       zahtevajVnosPodrobnostiZaPrireditev();
