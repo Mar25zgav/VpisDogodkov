@@ -137,6 +137,8 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
    }
 
    public void izberiTermin(int year, int monthOfYear, int dayOfMonth) {
+      zacetekPrireditve = new Date(year, monthOfYear, dayOfMonth);
+      konecPrireditve = new Date(year, monthOfYear, dayOfMonth);
       zahtevajVnosPodrobnostiZaIzvajalca();
    }
 
@@ -147,12 +149,7 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
       progressBar = (ProgressBar) findViewById(R.id.progressBar);
       groupIzvajalec = (Group) findViewById(R.id.groupIzvajalec);
       Button dodajButton = (Button) findViewById(R.id.buttonDodajIzvajalca);
-      dodajButton.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            vnosPodrobnostiIzvajalca();
-         }
-      });
+      dodajButton.setOnClickListener(v -> vnosPodrobnostiIzvajalca());
 
       recyclerView.setVisibility(View.GONE);
       groupIzvajalec.setVisibility(View.VISIBLE);
@@ -168,12 +165,7 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
       editTextNumberDecimal = (EditText) findViewById(R.id.editTextCenaVstopnice);
       Group groupPrireditev = (Group) findViewById(R.id.groupPrireditev);
       Button buttonDodajPrireditev = (Button) findViewById(R.id.buttonDodajPrireditev);
-      buttonDodajPrireditev.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            vnosPodrobnostiPrireditve();
-         }
-      });
+      buttonDodajPrireditev.setOnClickListener(v -> vnosPodrobnostiPrireditve());
 
       textViewIzvajalec.setText(imeIzvajalca);
       textViewMesto.setText(imeMesta);

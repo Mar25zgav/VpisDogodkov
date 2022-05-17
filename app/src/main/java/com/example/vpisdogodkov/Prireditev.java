@@ -1,5 +1,7 @@
 package com.example.vpisdogodkov;
 
+import net.sourceforge.jtds.jdbc.DateTime;
+
 import java.sql.Date;
 
 /***********************************************************************
