@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -238,8 +239,10 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
 
       if (prireditevPrimaryKey == -1)
          Toast.makeText(ZmOrganizatorVpisDogodka.this, "Nekaj se je zalomilo, znova poskusi kasneje", Toast.LENGTH_LONG).show();
-      else
+      else{
+         SQLHelper.termin.oznaciKotZaseden(sifraMesta, zacetekPrireditve.getTime());
          prikaziSporociloOUspesnemVpisuDogodka();
+      }
    }
 
    private void showZacetekTimePicker() {

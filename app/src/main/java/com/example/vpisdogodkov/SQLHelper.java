@@ -1,14 +1,12 @@
 package com.example.vpisdogodkov;
 
-import android.text.PrecomputedText;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,7 +136,7 @@ public class SQLHelper {
                 ResultSet rs=stmt.executeQuery();
 
                 while (rs.next()) {
-                    Termin tempTermin = new Termin(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getTime(4), rs.getByte(5));
+                    Termin tempTermin = new Termin(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getByte(4));
                     prostiTermini.add(tempTermin);
                 }
                 connection.close();
@@ -146,6 +144,21 @@ public class SQLHelper {
                 e.printStackTrace();
             }
             return prostiTermini;
+        }
+
+        public static void oznaciKotZaseden(int sifraMesta, Date datum){
+            java.sql.Date datumSQL = new java.sql.Date(datum.getTime());
+            try {
+                connection = DriverManager.getConnection(url, username,password);
+                PreparedStatement stmt=connection.prepareStatement("UPDATE Termin SET zaseden = 1 WHERE sifraMesta = ? AND datum = ?");
+                stmt.setInt(1,sifraMesta);
+                stmt.setDate(2, datumSQL);
+
+                stmt.executeUpdate();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
