@@ -3,6 +3,8 @@ package com.example.vpisdogodkov;
 import static java.lang.Integer.parseInt;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,10 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /***********************************************************************
  * Module:  ZmOrganizatorVpisDogodka.java
@@ -39,16 +42,16 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
    // Vpis Izvajalca
    private EditText editTextNazivIzvajalca, editTextOpisIzvajalca;
    private ProgressBar progressBar;
-   private Group groupIzvajalec;
+   private Group groupIzvajalec, groupPrireditev;
 
    // Vpis Prireditve
    int sifraIzvajalca = -1;
    int sifraMesta = -1;
-   Date zacetekPrireditve = null;
-   Date konecPrireditve = null;
+   Calendar zacetekPrireditve = null;
+   Calendar konecPrireditve = null;
    String imeMesta = "";
    String imeIzvajalca = "";
-
+   Button btnZacetek, btnKonec;
    EditText editTextNaslovPrireditve, editTextNumberDecimal;
 
    @Override
@@ -137,8 +140,11 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
    }
 
    public void izberiTermin(int year, int monthOfYear, int dayOfMonth) {
-      zacetekPrireditve = new Date(year, monthOfYear, dayOfMonth);
-      konecPrireditve = new Date(year, monthOfYear, dayOfMonth);
+      zacetekPrireditve = Calendar.getInstance();
+      zacetekPrireditve.set(year, monthOfYear, dayOfMonth);
+      konecPrireditve = Calendar.getInstance();
+      konecPrireditve.set(year, monthOfYear, dayOfMonth);
+
       zahtevajVnosPodrobnostiZaIzvajalca();
    }
 
@@ -153,60 +159,6 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
 
       recyclerView.setVisibility(View.GONE);
       groupIzvajalec.setVisibility(View.VISIBLE);
-   }
-
-   public void zahtevajVnosPodrobnostiZaPrireditev() {
-      // Inicializiraj vse za vnos prireditve
-      TextView textViewIzvajalec = (TextView) findViewById(R.id.textViewIzvajalec);
-      TextView textViewMesto = (TextView) findViewById(R.id.textViewMesto);
-      TextView textViewZacetek = (TextView) findViewById(R.id.textViewZacetek);
-      TextView textViewKonec = (TextView) findViewById(R.id.textViewKonec);
-      editTextNaslovPrireditve = (EditText) findViewById(R.id.editTextNaslovPrireditve);
-      editTextNumberDecimal = (EditText) findViewById(R.id.editTextCenaVstopnice);
-      Group groupPrireditev = (Group) findViewById(R.id.groupPrireditev);
-      Button buttonDodajPrireditev = (Button) findViewById(R.id.buttonDodajPrireditev);
-      buttonDodajPrireditev.setOnClickListener(v -> vnosPodrobnostiPrireditve());
-
-      textViewIzvajalec.setText(imeIzvajalca);
-      textViewMesto.setText(imeMesta);
-      if (zacetekPrireditve != null)
-         textViewZacetek.setText(zacetekPrireditve.toString());
-      if (konecPrireditve != null)
-         textViewKonec.setText(konecPrireditve.toString());
-
-      groupIzvajalec.setVisibility(View.GONE);
-      groupPrireditev.setVisibility(View.VISIBLE);
-   }
-
-   public void vnosPodrobnostiPrireditve() {
-      String naslovPrireditve = editTextNaslovPrireditve.getText().toString();
-      String cenaVstopnice = editTextNumberDecimal.getText().toString();
-
-      if (naslovPrireditve.isEmpty()){
-         editTextNaslovPrireditve.setError("Polje je obvezno!");
-         editTextNaslovPrireditve.requestFocus();
-         return;
-      }
-
-      if (cenaVstopnice.isEmpty()){
-         editTextNumberDecimal.setError("Polje je obvezno!");
-         editTextNumberDecimal.requestFocus();
-         return;
-      }
-
-      progressBar.setVisibility(View.VISIBLE);
-      Prireditev prireditev = new Prireditev(sifraIzvajalca, sifraMesta, naslovPrireditve, parseInt(cenaVstopnice), zacetekPrireditve, konecPrireditve);
-      int prireditevPrimaryKey = SQLHelper.prireditev.insert(prireditev);
-      progressBar.setVisibility(View.GONE);
-
-      if (prireditevPrimaryKey == -1)
-         Toast.makeText(ZmOrganizatorVpisDogodka.this, "Nekaj se je zalomilo, znova poskusi kasneje", Toast.LENGTH_LONG).show();
-      else
-         prikaziSporociloOUspesnemVpisuDogodka();
-   }
-
-   public void prikaziSporociloOUspesnemVpisuDogodka() {
-      Toast.makeText(ZmOrganizatorVpisDogodka.this, "Prireditev uspesno dodana", Toast.LENGTH_LONG).show();
    }
 
    public void vnosPodrobnostiIzvajalca() {
@@ -239,6 +191,100 @@ public class ZmOrganizatorVpisDogodka extends AppCompatActivity implements DateP
       Toast.makeText(ZmOrganizatorVpisDogodka.this, "Izvajalec uspesno dodan", Toast.LENGTH_LONG).show();
 
       zahtevajVnosPodrobnostiZaPrireditev();
+   }
+
+   public void zahtevajVnosPodrobnostiZaPrireditev() {
+      // Inicializiraj vse za vnos prireditve
+      TextView textViewIzvajalec = (TextView) findViewById(R.id.textViewIzvajalec);
+      TextView textViewMesto = (TextView) findViewById(R.id.textViewMesto);
+      editTextNaslovPrireditve = (EditText) findViewById(R.id.editTextNaslovPrireditve);
+      editTextNumberDecimal = (EditText) findViewById(R.id.editTextCenaVstopnice);
+      groupPrireditev = (Group) findViewById(R.id.groupPrireditev);
+      Button btnDodajPrireditev = (Button) findViewById(R.id.btnDodajPrireditev);
+      btnDodajPrireditev.setOnClickListener(v -> vnosPodrobnostiPrireditve());
+
+      btnZacetek = (Button) findViewById(R.id.zacetekBtn);
+      btnZacetek.setOnClickListener(v -> showZacetekTimePicker());
+      btnKonec = (Button) findViewById(R.id.konecBtn);
+      btnKonec.setOnClickListener(v -> showKonecTimePicker());
+
+      textViewMesto.setText("Mesto: " + imeMesta);
+      textViewIzvajalec.setText("Izvajalec: " + imeIzvajalca);
+
+      groupIzvajalec.setVisibility(View.GONE);
+      groupPrireditev.setVisibility(View.VISIBLE);
+   }
+
+   public void vnosPodrobnostiPrireditve() {
+      String naslovPrireditve = editTextNaslovPrireditve.getText().toString();
+      String cenaVstopnice = editTextNumberDecimal.getText().toString();
+
+      if (naslovPrireditve.isEmpty()){
+         editTextNaslovPrireditve.setError("Polje je obvezno!");
+         editTextNaslovPrireditve.requestFocus();
+         return;
+      }
+
+      if (cenaVstopnice.isEmpty()){
+         editTextNumberDecimal.setError("Polje je obvezno!");
+         editTextNumberDecimal.requestFocus();
+         return;
+      }
+
+      progressBar.setVisibility(View.VISIBLE);
+      Prireditev prireditev = new Prireditev(sifraIzvajalca, sifraMesta, naslovPrireditve, parseInt(cenaVstopnice), zacetekPrireditve, konecPrireditve);
+      int prireditevPrimaryKey = SQLHelper.prireditev.insert(prireditev);
+      progressBar.setVisibility(View.GONE);
+
+      if (prireditevPrimaryKey == -1)
+         Toast.makeText(ZmOrganizatorVpisDogodka.this, "Nekaj se je zalomilo, znova poskusi kasneje", Toast.LENGTH_LONG).show();
+      else
+         prikaziSporociloOUspesnemVpisuDogodka();
+   }
+
+   private void showZacetekTimePicker() {
+      TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
+         zacetekPrireditve.set(Calendar.HOUR_OF_DAY, selectedHour);
+         zacetekPrireditve.set(Calendar.MINUTE, selectedMinute);
+         btnZacetek.setText(String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute));
+      };
+
+      TimePickerDialog timePickerDialog = new TimePickerDialog(
+              this,
+              AlertDialog.THEME_HOLO_LIGHT,
+              onTimeSetListener,
+              zacetekPrireditve.get(Calendar.HOUR_OF_DAY),
+              zacetekPrireditve.get(Calendar.MINUTE),
+              true);
+
+      timePickerDialog.setTitle("Izberi uro začetka");
+      timePickerDialog.show();
+   }
+
+   private void showKonecTimePicker() {
+      TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
+         konecPrireditve.set(Calendar.HOUR_OF_DAY, selectedHour);
+         konecPrireditve.set(Calendar.MINUTE, selectedMinute);
+         btnKonec.setText(String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute));
+      };
+
+      TimePickerDialog timePickerDialog = new TimePickerDialog(
+              this,
+              AlertDialog.THEME_HOLO_LIGHT,
+              onTimeSetListener,
+              konecPrireditve.get(Calendar.HOUR_OF_DAY),
+              konecPrireditve.get(Calendar.MINUTE),
+              true);
+
+      timePickerDialog.setTitle("Izberi uro konca");
+      timePickerDialog.show();
+   }
+
+   public void prikaziSporociloOUspesnemVpisuDogodka() {
+      Toast.makeText(ZmOrganizatorVpisDogodka.this, "Prireditev uspesno dodana", Toast.LENGTH_LONG).show();
+
+      groupPrireditev.setVisibility(View.GONE);
+      recyclerView.setVisibility(View.VISIBLE);
    }
 
 }

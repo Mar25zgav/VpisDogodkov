@@ -3,6 +3,7 @@ package com.example.vpisdogodkov;
 import net.sourceforge.jtds.jdbc.DateTime;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class KVpisDogodka {
       // TODO: implement
    }
 
-   public void dodajNovoPrireditev(int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Date zacetek, Date konec) {
+   public void dodajNovoPrireditev(int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Calendar zacetek, Calendar konec) {
       Prireditev prireditev = new Prireditev(sifraIzvajalca, sifraMesta, naslov, cenaVstopnice, zacetek, konec);
       Prireditev.dodajPrireditev(prireditev);
    }

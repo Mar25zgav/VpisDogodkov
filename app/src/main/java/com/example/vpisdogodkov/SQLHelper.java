@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,8 +75,8 @@ public class SQLHelper {
                 stmt.setInt(2,prireditev.vrniSifroMesta());
                 stmt.setString(3,prireditev.vrniNaslov());
                 stmt.setDouble(4,prireditev.vrniCenoVstopnice());
-                stmt.setDate(5,prireditev.vrniZacetek());
-                stmt.setDate(6,prireditev.vrniKonec());
+                stmt.setTimestamp(5, new java.sql.Timestamp(prireditev.vrniZacetek().getTime().getTime()));
+                stmt.setTimestamp(6, new java.sql.Timestamp(prireditev.vrniKonec().getTime().getTime()));
 
                 stmt.executeUpdate();
                 ResultSet rs = stmt.getGeneratedKeys();

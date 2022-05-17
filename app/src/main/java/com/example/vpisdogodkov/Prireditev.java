@@ -1,8 +1,14 @@
 package com.example.vpisdogodkov;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import net.sourceforge.jtds.jdbc.DateTime;
 
 import java.sql.Date;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 
 /***********************************************************************
  * Module:  Prireditev.java
@@ -17,10 +23,10 @@ public class Prireditev {
    private int sifraMesta;
    private String naslov;
    private double cenaVstopnice;
-   private Date zacetek;
-   private Date konec;
+   private Calendar zacetek;
+   private Calendar konec;
 
-   public Prireditev(int sifraPrireditve, int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Date zacetek, Date konec) {
+   public Prireditev(int sifraPrireditve, int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Calendar zacetek, Calendar konec) {
       this.sifraPrireditve = sifraPrireditve;
       this.sifraIzvajalca = sifraIzvajalca;
       this.sifraMesta = sifraMesta;
@@ -30,7 +36,7 @@ public class Prireditev {
       this.konec = konec;
    }
 
-   public Prireditev(int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Date zacetek, Date konec) {
+   public Prireditev(int sifraIzvajalca, int sifraMesta, String naslov, double cenaVstopnice, Calendar zacetek, Calendar konec) {
       this.sifraIzvajalca = sifraIzvajalca;
       this.sifraMesta = sifraMesta;
       this.naslov = naslov;
@@ -54,17 +60,16 @@ public class Prireditev {
    public double vrniCenoVstopnice() {
       return cenaVstopnice;
    }
-   public Date vrniZacetek() {
+   public Calendar vrniZacetek() {
       return zacetek;
    }
-   public Date vrniKonec() {
+   public Calendar vrniKonec() {
       return konec;
    }
 
+   @RequiresApi(api = Build.VERSION_CODES.O)
    public int vrniTrajanje() {
-      // TODO: implement
-      // konec - zacetek
-      return 0;
+      return (int) ChronoUnit.HOURS.between(zacetek.toInstant(), konec.toInstant());
    }
 
    public static void dodajPrireditev(Prireditev prireditev) {

@@ -93,10 +93,11 @@
         android:layout_height="53dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="Cena Vstopnice (€)"
+        android:hint="Cena vstopnice (€)"
         android:inputType="numberDecimal"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNaslovPrireditve" />
 
@@ -104,121 +105,76 @@
         android:id="@+id/editTextNaslovPrireditve"
         android:layout_width="310dp"
         android:layout_height="53dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
-        android:hint="Naslov Prireditve"
+        android:hint="Vnesi naslov prireditve"
         android:inputType="text"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewMestoLabel"
+        android:id="@+id/textViewZacetekKonec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Mesto:"
-        android:textColor="#A1A1A1"
+        android:layout_marginTop="60dp"
+        android:text="Nastavi čas začetka in konca"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMesto"
-        app:layout_constraintHorizontal_bias="0.595"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIzvajalecLabel" />
-
-    <TextView
-        android:id="@+id/textViewZacetekLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="Zacetek:"
-        android:textColor="#A1A1A1"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewZacetek"
-        app:layout_constraintHorizontal_bias="0.743"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMestoLabel" />
-
-    <TextView
-        android:id="@+id/textViewKonec"
-        android:layout_width="220sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:text="TO DO Konec"
-        android:textColor="#A1A1A1"
-        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewZacetek" />
-
-    <TextView
-        android:id="@+id/textViewKonecLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Konec:"
-        android:textColor="#A1A1A1"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewKonec"
-        app:layout_constraintHorizontal_bias="0.617"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewZacetekLabel" />
-
-    <TextView
-        android:id="@+id/textViewZacetek"
-        android:layout_width="220sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:text="TO DO Zacetek"
-        android:textColor="#A1A1A1"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMesto" />
-
-    <TextView
-        android:id="@+id/textViewMesto"
-        android:layout_width="220sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:text="temp mesto"
-        android:textColor="#A1A1A1"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIzvajalec" />
-
-    <TextView
-        android:id="@+id/textViewIzvajalecLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="Izvajalec:"
-        android:textColor="#A1A1A1"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewIzvajalec"
-        app:layout_constraintHorizontal_bias="0.805"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCenaVstopnice" />
-
-    <TextView
-        android:id="@+id/textViewIzvajalec"
-        android:layout_width="220sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:text="temp izvajalec"
-        android:textColor="#A1A1A1"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextCenaVstopnice" />
 
     <Button
-        android:id="@+id/buttonDodajPrireditev"
+        android:id="@+id/zacetekBtn"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Začetek"
+        app:layout_constraintEnd_toStartOf="@+id/konecBtn"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewZacetekKonec" />
+
+    <Button
+        android:id="@+id/konecBtn"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:text="Konec"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewZacetekKonec" />
+
+    <TextView
+        android:id="@+id/textViewMesto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:width="300dp"
+        android:text="Mesto:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zacetekBtn" />
+
+    <TextView
+        android:id="@+id/textViewIzvajalec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:width="300dp"
+        android:text="Izvajalec:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMesto" />
+
+    <Button
+        android:id="@+id/btnDodajPrireditev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
@@ -233,7 +189,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="buttonDodajPrireditev,editTextNaslovPrireditve,textViewZacetekLabel,textViewKonec,textViewMesto,editTextCenaVstopnice,textViewKonecLabel,textViewZacetek,textViewMestoLabel,textViewIzvajalec,textViewIzvajalecLabel"
+        app:constraint_referenced_ids="textViewMesto, textViewIzvajalec, editTextNaslovPrireditve, editTextCenaVstopnice, textViewZacetekKonec, zacetekBtn, konecBtn, btnDodajPrireditev"
         tools:layout_editor_absoluteX="180dp"
         tools:layout_editor_absoluteY="231dp"
         tools:visibility="visible" />
